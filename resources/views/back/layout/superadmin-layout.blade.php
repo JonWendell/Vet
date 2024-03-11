@@ -225,16 +225,11 @@
 		
 				<div class="user-info-dropdown">
 					<div class="dropdown">
-						<a
-							class="dropdown-toggle"
-							href="#"
-							role="button"
-							data-toggle="dropdown"
-						>
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
 							<span class="user-icon">
-								<img src="/back/images/cydiepic.jpg" alt="" />
+								<i class="far fa-user"></i>
 							</span>
-							<span class="user-name"> Cydie S. Gargullo</span>
+							<span class="user-name">{{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
