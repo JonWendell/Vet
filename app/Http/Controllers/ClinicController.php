@@ -19,7 +19,7 @@ class ClinicController extends Controller
             'location' => 'required',
             'contact' => 'required',
             'status' => 'required',
-            'doctor_name' => 'required', // Ensure doctor_name is required
+            'doctor_name' => 'required', 
         ]);
 
         $clinic = Clinic::create($request->all());
