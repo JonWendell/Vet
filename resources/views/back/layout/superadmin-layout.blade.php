@@ -225,11 +225,16 @@
 		
 				<div class="user-info-dropdown">
 					<div class="dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+						<a
+							class="dropdown-toggle"
+							href="#"
+							role="button"
+							data-toggle="dropdown"
+						>
 							<span class="user-icon">
-								<i class="far fa-user"></i>
+								<img src="/back/images/cydiepic.jpg" alt="" />
 							</span>
-							<span class="user-name">{{ auth()->user()->firstName }} {{ auth()->user()->lastName }}</span>
+							<span class="user-name"> Cydie S. Gargullo</span>
 						</a>
 						<div
 							class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list"
@@ -471,14 +476,6 @@
 						</li>
 						</ul>
 
-
-						<li>
-							<a href="chat.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-chat-right-dots"></span
-								><span class="mtext">Inventory</span>
-							</a>
-						</li>
-
 						<li class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle no-arrow">
 								<span class="micon bi bi-bar-chart"></span>
@@ -493,15 +490,6 @@
 								><span class="mtext">Visualization</span>
 							</a>
 						</li>
-
-						<li>
-							<a href="chat.html" class="dropdown-toggle no-arrow">
-								<span class="micon bi bi-chat-right-dots"></span
-								><span class="mtext">Chat</span>
-							</a>
-						</li>
-						
-				
 				</div>
 			</div>
 		</div>

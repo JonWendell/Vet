@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 11, 2024 at 12:47 PM
+-- Generation Time: Dec 26, 2023 at 10:54 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `vet`
+-- Database: `dental`
 --
 
 -- --------------------------------------------------------
@@ -29,29 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `appointments` (
   `id` bigint UNSIGNED NOT NULL,
-  `first_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `appointment_date` date NOT NULL,
   `appointment_time` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `status` enum('pending','accepted','completed','canceled') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `clinic_id` bigint UNSIGNED DEFAULT NULL
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`id`, `first_name`, `last_name`, `appointment_date`, `appointment_time`, `created_at`, `updated_at`, `user_id`, `status`, `clinic_id`) VALUES
-(1, 'Erzie', 'Erzie', '2024-03-03', '08:00:00', '2024-03-02 08:08:04', '2024-03-02 08:56:04', 12, 'completed', 16),
-(2, 'Erzie', 'Erzie', '2024-03-03', '10:00:00', '2024-03-02 08:48:49', '2024-03-03 05:34:29', 12, 'completed', 16),
-(3, 'Erzie', 'Erzie', '2024-03-03', '08:00:00', '2024-03-03 05:34:51', '2024-03-03 05:47:43', 12, 'canceled', 16),
-(4, 'Erzie', 'Erzie', '2024-03-03', '08:00:00', '2024-03-03 05:50:20', '2024-03-03 05:50:46', 12, 'canceled', 16),
-(5, 'Erzie', 'Erzie', '2024-03-03', '08:00:00', '2024-03-03 05:51:44', '2024-03-03 05:52:14', 12, 'canceled', 16),
-(6, 'Erzie', 'Erzie', '2024-03-03', '10:00:00', '2024-03-03 06:27:06', '2024-03-03 06:27:44', 12, 'completed', 16),
-(7, 'Erzie', 'Erzie', '2024-03-03', '08:00:00', '2024-03-03 06:28:25', '2024-03-03 06:28:57', 12, 'canceled', 16);
+INSERT INTO `appointments` (`id`, `first_name`, `last_name`, `appointment_date`, `appointment_time`, `created_at`, `updated_at`, `user_id`, `status`) VALUES
+(3, 'Jon Wendell', 'Cabrere', '2023-12-27', '19:17:00', '2023-12-25 23:17:46', '2023-12-25 23:18:06', 6, 'completed'),
+(4, 'Janzel', 'Bongo', '2023-12-29', '09:47:00', '2023-12-25 23:43:42', '2023-12-25 23:44:18', 6, 'completed');
 
 -- --------------------------------------------------------
 
@@ -67,17 +61,18 @@ CREATE TABLE `clinics` (
   `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `user_id` bigint UNSIGNED NOT NULL DEFAULT '1',
-  `doctor_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `user_id` bigint UNSIGNED NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `clinics`
 --
 
-INSERT INTO `clinics` (`id`, `name`, `location`, `contact`, `status`, `created_at`, `updated_at`, `user_id`, `doctor_name`) VALUES
-(16, 'Gwenchana Dentist', 'Santo Nino', '09305115251', 'Active', '2024-02-19 05:30:54', '2024-02-19 05:50:22', 1, 'Gwencha Gwenchanayo'),
-(18, 'Janzel Clinic', 'Cebu', '09092133212', 'Active', '2024-02-19 06:15:17', '2024-02-19 06:15:17', 1, 'Janzel Bongo');
+INSERT INTO `clinics` (`id`, `name`, `location`, `contact`, `status`, `created_at`, `updated_at`, `user_id`) VALUES
+(8, 'Victoria', 'Victoria', '09305115251', 'Active', '2023-12-13 09:31:32', '2023-12-13 09:31:32', 1),
+(9, 'Calapan', 'Masipit', '09305115251', 'Active', '2023-12-13 09:39:15', '2023-12-13 09:39:15', 1),
+(10, 'Bongabong', 'Bongabong', '09892389812', 'Active', '2023-12-15 23:57:55', '2023-12-15 23:57:55', 1),
+(12, 'Test2', 'Test', 'Test', 'Active', '2023-12-24 02:53:11', '2023-12-24 02:54:40', 1);
 
 -- --------------------------------------------------------
 
@@ -118,12 +113,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2023_12_24_110225_remove_role_column_from_users', 3),
 (5, '2023_12_24_110244_add_modified_role_column_to_users', 4),
 (6, '2023_12_26_063230_create_appointments_table', 5),
-(7, '2023_12_26_071104_add_status_to_appointments_table', 6),
-(8, '2024_02_12_120327_add_super_admin_role_to_users', 7),
-(9, '2024_02_18_113423_add_clinic_id_to_appointments_table', 8),
-(10, '2024_02_19_132112_add_doctor_name_to_clinics_table', 9),
-(11, '2024_03_02_154939_update_status_column_in_appointments_table', 10),
-(12, '2024_03_03_134341_add_canceled_status_to_appointments_table', 11);
+(7, '2023_12_26_071104_add_status_to_appointments_table', 6);
 
 -- --------------------------------------------------------
 
@@ -165,11 +155,11 @@ INSERT INTO `password_reset_tokens` (`email`, `guard`, `token`, `created_at`) VA
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -196,7 +186,7 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `clinic_id` int DEFAULT NULL,
-  `role` varchar(255) NOT NULL DEFAULT 'super_admin'
+  `role` enum('admin','staff','patient') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -204,13 +194,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `address`, `gender`, `age`, `email`, `password`, `created_at`, `updated_at`, `clinic_id`, `role`) VALUES
-(1, 'Sett', 'Jon Wendell', 'Cabrera', 'Lontoc', 'Nacoco Santo Nino', 'male', 22, 'corvecc1@gmail.com', '$2y$12$2k8M1Dr4znqRowxeg/4LiePrDsTbOftt0NC43FwikNg0jk9IoQUCi', '2024-02-19 05:31:38', '2024-02-19 06:01:09', 16, 'super_admin'),
-(4, 'staffcal', 'staffcal', 'staffcal', 'staffcal', 'Test', 'female', 21, 'staffcal@gmail.com', '$2y$12$1xIoG7fECmJyaCvzk9hB7uMn6lh0Yt4k04a5LkaVMwlxe97cW98z6', '2024-02-19 06:13:07', '2024-02-19 06:13:07', 16, 'staff'),
-(6, 'staffvic', 'staffvic', 'staffvic', 'staffvic', 'Test', 'female', 21, 'staffvic@gmail.com', '$2y$12$PW0q/y1f8t7Lu61MSqdSeOcDvKU1t66xeoMDh3ImIFpKDKsI91av2', '2024-02-19 06:15:48', '2024-02-19 06:15:48', 18, 'staff'),
-(7, 'admincal', 'admincal', 'admincal', 'admincal', 'Test', 'female', 21, 'admincal@gmail.com', '$2y$12$xgLPf4n42RNZ4Ewog5sC8.uKW/go4WSFYehre9FExL4soV3iI/kFu', '2024-02-19 06:16:39', '2024-02-19 06:16:39', 16, 'admin'),
-(10, 'patient', 'patient', 'patient', 'patient', 'Test', 'male', 21, 'patient@gmail.com', '$2y$12$Eqdn7KFYxfowH0zsD6N3AOI0DpGh95lLHClvGyoz9C5jQIUaLNWsC', '2024-02-19 06:50:01', '2024-02-19 06:50:01', NULL, 'patient'),
-(11, 'clientcal', 'clientcal', 'clientcal', 'clientcal', 'Test', 'female', 21, 'clientcal@gmail.com', '$2y$12$MXJHFcL5KU0JqA/aaLGVbuZ5L0i9tMzNvdjbc6kL1KONuSqkWfa52', '2024-02-19 06:56:07', '2024-02-19 06:56:07', NULL, 'patient'),
-(12, 'Erzie', 'Erzie', 'Erzie', 'Erzie', 'Cebu', 'male', 21, 'janzkiemalditz@gmail.com', '$2y$12$LQHMcDEiQpLRKZVr7/0g9.6wt3/MM6tr3gbQHAVUWeYoD9Yxh2TFC', '2024-02-19 06:58:17', '2024-02-19 06:58:17', NULL, 'patient');
+(2, 'admincal', 'admincal', 'admincal', 'admincal', 'admincal', 'male', 21, 'admincal@gmail.com', '$2y$12$C6YgmnJgO/3TFlT86imv.up.3jmf42Jf21MDgd1VuG8jA9Mor5QHO', '2023-12-24 03:52:44', '2023-12-24 03:52:44', 9, 'admin'),
+(3, 'cala', 'cala', 'cala', 'cala', 'cala', 'male', 231, 'cala@gmil.com', '$2y$12$zFkMAW74AnKaQK0jYpbwU.j8DFvxzUuJwU/lwuPVK92cxKHX5irQa', '2023-12-25 06:14:25', '2023-12-25 06:14:25', 9, 'admin'),
+(4, 'staffcal', 'staffcal', 'staffcal', 'staffcal', 'staffcal', 'male', 32, 'staffcal@gmail.com', '$2y$12$WsL3h4RingBrvX7Vd4qVJOeMxHN0DRZeEThd.LloY37GjIsNQfPxi', '2023-12-25 06:18:03', '2023-12-25 06:18:03', 9, 'staff'),
+(6, 'patientcal', 'patientcal', 'patientcal', 'patientcal', 'patientcal', 'male', 32, 'patientcal@gmail.com', '$2y$12$LW0nqrZz4lt0H7ybmsbCduSnc9t3ox9TJ7UyC5BTO1jRJCjfytDfO', '2023-12-25 06:20:14', '2023-12-25 06:20:14', 9, 'patient'),
+(7, 'adminvic', 'adminvic', 'adminvic', 'adminvic', 'Victoria', 'female', 32, 'adminvic@gmail.com', '$2y$12$OXKtTtkU0fkKKOHGnBM0uO.qvbqgTn6Le/sYZ23GSAX8fMNW1uGCe', '2023-12-25 22:26:49', '2023-12-25 22:26:49', 8, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -220,8 +208,7 @@ INSERT INTO `users` (`id`, `username`, `firstName`, `lastName`, `middleName`, `a
 -- Indexes for table `appointments`
 --
 ALTER TABLE `appointments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `appointments_clinic_id_foreign` (`clinic_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `clinics`
@@ -276,13 +263,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `clinics`
 --
 ALTER TABLE `clinics`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -294,7 +281,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -306,17 +293,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `appointments`
---
-ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_clinic_id_foreign` FOREIGN KEY (`clinic_id`) REFERENCES `clinics` (`id`) ON DELETE SET NULL;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
